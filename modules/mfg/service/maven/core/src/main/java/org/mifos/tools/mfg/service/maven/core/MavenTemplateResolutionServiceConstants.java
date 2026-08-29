@@ -16,8 +16,6 @@ public class MavenTemplateResolutionServiceConstants {
             MIFOS_TOOLS_MFG_SERVICE_PACKAGE_BASE + ".maven";
     public static final String MIFOS_TOOLS_MFG_SERVICE_MAVEN_CORE_PACKAGE =
             MIFOS_TOOLS_MFG_SERVICE_MAVEN_PACKAGE_BASE + ".core";
-    public static final String MIFOS_TOOLS_MFG_SERVICE_MAVEN_MAPPING_PACKAGE =
-            MIFOS_TOOLS_MFG_SERVICE_MAVEN_PACKAGE_BASE + ".mapping";
     public static final String MIFOS_TOOLS_MFG_SERVICE_MAVEN_IMPLEMENTATION_PACKAGE =
             MIFOS_TOOLS_MFG_SERVICE_MAVEN_PACKAGE_BASE + ".implementation";
     public static final String MIFOS_TOOLS_MFG_SERVICE_MAVEN_STARTER_PACKAGE =

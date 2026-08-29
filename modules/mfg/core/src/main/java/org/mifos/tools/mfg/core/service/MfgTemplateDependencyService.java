@@ -5,8 +5,6 @@
 ///
 package org.mifos.tools.mfg.core.service;
 
-import java.util.List;
-
 public interface MfgTemplateDependencyService {
-    List<String> resolve(String spec);
+    String resolve(String spec);
 }

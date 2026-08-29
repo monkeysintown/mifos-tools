@@ -7,6 +7,7 @@ package org.mifos.tools.mfg.service.pebble.implementation;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.nio.file.Paths;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,9 +22,30 @@ final class PebbleTemplateServiceTest {
     private final PebbleTemplateService templateService;
 
     @Test
-    void eval() {
-        var result =
-                templateService.eval("./src/test/resources/templates.zip@content/Foo.java", Map.of("className", "Baz"));
+    void evalZip() {
+        log.error(
+                "PATH: {}",
+                Paths.get("").resolve("src/test/resources/templates.zip").toAbsolutePath());
+        var result = templateService.eval(
+                "zip://"
+                        + Paths.get("")
+                                .resolve("src/test/resources/templates.zip")
+                                .toAbsolutePath() + "!/content/Foo.java.peb",
+                Map.of("className", "Baz"));
+
+        assertNotNull(result);
+
+        log.error("Result: {}", result);
+    }
+
+    @Test
+    void evalTgz() {
+        var result = templateService.eval(
+                "tgz://"
+                        + Paths.get("")
+                                .resolve("src/test/resources/templates.tgz")
+                                .toAbsolutePath() + "!/content/Bar.java.peb",
+                Map.of("className", "Baz"));
 
         assertNotNull(result);
 

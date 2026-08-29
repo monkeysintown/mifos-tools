@@ -5,12 +5,12 @@
 ///
 package org.mifos.tools.mfg.core;
 
-import static org.mifos.tools.common.core.MfgConstants.MIFOS_TOOLS_ERROR_CODE_INCREMENT;
-import static org.mifos.tools.common.core.MfgConstants.MIFOS_TOOLS_ERROR_CODE_START;
-import static org.mifos.tools.common.core.MfgConstants.MIFOS_TOOLS_MESSAGE_BASE;
-import static org.mifos.tools.common.core.MfgConstants.MIFOS_TOOLS_MESSAGE_PREFIX;
-import static org.mifos.tools.common.core.MfgConstants.MIFOS_TOOLS_PACKAGE_BASE;
-import static org.mifos.tools.common.core.MfgConstants.MIFOS_TOOLS_PROPERTIES_PREFIX;
+import static org.mifos.tools.common.core.MifosToolsConstants.MIFOS_TOOLS_ERROR_CODE_INCREMENT;
+import static org.mifos.tools.common.core.MifosToolsConstants.MIFOS_TOOLS_ERROR_CODE_START;
+import static org.mifos.tools.common.core.MifosToolsConstants.MIFOS_TOOLS_MESSAGE_BASE;
+import static org.mifos.tools.common.core.MifosToolsConstants.MIFOS_TOOLS_MESSAGE_PREFIX;
+import static org.mifos.tools.common.core.MifosToolsConstants.MIFOS_TOOLS_PACKAGE_BASE;
+import static org.mifos.tools.common.core.MifosToolsConstants.MIFOS_TOOLS_PROPERTIES_PREFIX;
 
 import lombok.experimental.UtilityClass;
 
