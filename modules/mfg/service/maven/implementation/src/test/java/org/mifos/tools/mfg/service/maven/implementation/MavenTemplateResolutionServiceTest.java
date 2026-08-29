@@ -15,17 +15,18 @@ import org.junit.jupiter.api.Test;
 final class MavenTemplateResolutionServiceTest {
     @Test
     void resolve() {
-        var files = Maven.configureResolver()
+        var file = Maven.configureResolver()
                 .workOffline(false)
                 .withClassPathResolution(true)
-                .resolve("info.picocli:picocli:4.7.7")
+                .withRemoteRepo(
+                        "mifosx-gradle-local", "https://mifos.jfrog.io/artifactory/mifosx-gradle-local", "default")
+                .resolve("org.mifos.conventions.templates:mifos-conventions-templates-project:tgz:tpl:0.1.0-SNAPSHOT")
                 .withoutTransitivity()
+                .asSingleResolvedArtifact()
                 .asFile();
 
-        assertNotNull(files, "No files found!");
+        assertNotNull(file, "No files found!");
 
-        for (var file : files) {
-            log.warn("Resolved: {}", file.getAbsolutePath());
-        }
+        log.warn("Resolved: {}", file.getAbsolutePath());
     }
 }

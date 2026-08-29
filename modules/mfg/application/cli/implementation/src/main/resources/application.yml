@@ -20,6 +20,7 @@ mifos:
   commons:
     debug:
       cache-caffeine-enabled: true
+    tui-type: TAMBOUI
 logging:
   level:
     root: OFF

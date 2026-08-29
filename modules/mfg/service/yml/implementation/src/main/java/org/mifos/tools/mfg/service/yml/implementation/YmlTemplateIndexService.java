@@ -5,14 +5,13 @@
 ///
 package org.mifos.tools.mfg.service.yml.implementation;
 
-import static java.util.Objects.nonNull;
 import static java.util.Objects.requireNonNull;
 import static org.mifos.commons.boot.core.exception.MifosCliException.MifosCliErrorCode.MIFOS_COMMONS_ERROR_CLI_GENERIC;
 import static org.mifos.tools.mfg.core.MfgConstants.MIFOS_TOOLS_MFG_CACHE_TEMPLATE;
-import static org.mifos.tools.mfg.core.model.MfgTemplateIndexData.TemplateParameterType.ENUM;
+import static org.mifos.tools.mfg.core.model.MfgTemplateIndexData.TemplateParameterType.SELECT_MULTI;
+import static org.mifos.tools.mfg.core.model.MfgTemplateIndexData.TemplateParameterType.SELECT_SINGLE;
 
 import java.io.InputStream;
-import java.nio.file.Path;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,18 +31,6 @@ import tools.jackson.dataformat.yaml.YAMLMapper;
 class YmlTemplateIndexService implements MfgTemplateIndexService {
     private final YAMLMapper mapper;
 
-    @Cacheable(key = "#filePath")
-    @Override
-    public MfgTemplateIndexData index(Path filePath) {
-        // TODO: implement this!
-
-        return MfgTemplateIndexData.builder()
-                .files(List.of(MfgTemplateIndexData.TemplateFileDefinition.builder()
-                        .template("content/Foo.java")
-                        .build()))
-                .build();
-    }
-
     @Override
     public MfgTemplateIndexData parse(InputStream data) {
         return mapper.readValue(data, MfgTemplateIndexData.class);
@@ -51,42 +38,75 @@ class YmlTemplateIndexService implements MfgTemplateIndexService {
 
     @Override
     public void validate(MfgTemplateIndexData index) {
-        // TODO: implement this
         requireNonNull(index, "Template is required");
         requireNonNull(index.getMetadata(), "Template metadata is required");
 
-        if (StringUtils.isBlank(index.getMetadata().getName())) {
+        if (StringUtils.isBlank(index.getMetadata().getDescription())) {
             throw new MifosCliException(
                     MifosError.of(MIFOS_COMMONS_ERROR_CLI_GENERIC, "name", "Template name is required"));
         }
 
-        if (nonNull(index.getParameters())) {
-            for (var param : index.getParameters()) {
-                validateParameter(param);
-            }
-        }
+        validateGroups(index.getGroups());
+    }
 
-        if (index.getFiles() == null || index.getFiles().isEmpty()) {
-            throw new MifosCliException(MifosError.of(
-                    MIFOS_COMMONS_ERROR_CLI_GENERIC, "files", "At least one file definition is required"));
+    private void validateGroups(List<MfgTemplateIndexData.TemplateGroup> groups) {
+        requireNonNull(groups, "Groups are required");
+
+        for (var group : groups) {
+            if (StringUtils.isBlank(group.getName())) {
+                throw new MifosCliException(
+                        MifosError.of(MIFOS_COMMONS_ERROR_CLI_GENERIC, "name", "Group name is required"));
+            }
+
+            validateParameters(group.getParameters());
+            validateFiles(group.getFiles());
         }
     }
 
-    private void validateParameter(MfgTemplateIndexData.TemplateParameter param) {
-        if (StringUtils.isBlank(param.getName())) {
+    private void validateParameters(List<MfgTemplateIndexData.TemplateParameter> params) {
+        if (params == null || params.isEmpty()) {
             throw new MifosCliException(
-                    MifosError.of(MIFOS_COMMONS_ERROR_CLI_GENERIC, "name", "Parameter name is required"));
+                    MifosError.of(MIFOS_COMMONS_ERROR_CLI_GENERIC, "parameters", "At least one parameter is required"));
         }
 
-        if (param.getType() == null) {
-            throw new MifosCliException(
-                    MifosError.of(MIFOS_COMMONS_ERROR_CLI_GENERIC, param.getName(), "Parameter type is required"));
+        for (var param : params) {
+            if (StringUtils.isBlank(param.getName())) {
+                throw new MifosCliException(
+                        MifosError.of(MIFOS_COMMONS_ERROR_CLI_GENERIC, "name", "Parameter name is required"));
+            }
+
+            if (param.getType() == null) {
+                throw new MifosCliException(
+                        MifosError.of(MIFOS_COMMONS_ERROR_CLI_GENERIC, param.getName(), "Parameter type is required"));
+            }
+
+            if ((SELECT_SINGLE.equals(param.getType()) || SELECT_MULTI.equals(param.getType()))
+                    && (param.getOptions() == null || param.getOptions().isEmpty())) {
+                throw new MifosCliException(MifosError.of(
+                        MIFOS_COMMONS_ERROR_CLI_GENERIC, param.getName(), "Select parameter requires options"));
+            }
+        }
+    }
+
+    private void validateFiles(List<MfgTemplateIndexData.TemplateFileDefinition> files) {
+        if (files == null || files.isEmpty()) {
+            throw new MifosCliException(MifosError.of(
+                    MIFOS_COMMONS_ERROR_CLI_GENERIC, "files", "At least one file definition is required"));
         }
 
-        if (ENUM.equals(param.getType())
-                && (param.getOptions() == null || param.getOptions().isEmpty())) {
-            throw new MifosCliException(
-                    MifosError.of(MIFOS_COMMONS_ERROR_CLI_GENERIC, param.getName(), "Enum parameter requires options"));
+        for (var file : files) {
+            if (StringUtils.isBlank(file.getPath())) {
+                throw new MifosCliException(
+                        MifosError.of(MIFOS_COMMONS_ERROR_CLI_GENERIC, "path", "File path is required"));
+            }
+            if (StringUtils.isBlank(file.getTemplate())) {
+                throw new MifosCliException(MifosError.of(
+                        MIFOS_COMMONS_ERROR_CLI_GENERIC, "template", "File template reference is required"));
+            }
+            if (file.getType() == null) {
+                throw new MifosCliException(
+                        MifosError.of(MIFOS_COMMONS_ERROR_CLI_GENERIC, "type", "File type is required"));
+            }
         }
     }
 }

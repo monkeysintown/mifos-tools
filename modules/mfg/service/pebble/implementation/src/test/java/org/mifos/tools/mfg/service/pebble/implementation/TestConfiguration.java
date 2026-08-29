@@ -5,8 +5,8 @@
 ///
 package org.mifos.tools.mfg.service.pebble.implementation;
 
-import static org.mifos.tools.mfg.service.pebble.core.PebbleTemplateServiceConstants.MIFOS_TOOLS_MFG_SERVICE_PEBBLE_CORE_PACKAGE;
-import static org.mifos.tools.mfg.service.pebble.core.PebbleTemplateServiceConstants.MIFOS_TOOLS_MFG_SERVICE_PEBBLE_IMPLEMENTATION_PACKAGE;
+import static org.mifos.tools.mfg.service.pebble.core.PebbleServiceConstants.MIFOS_TOOLS_MFG_SERVICE_PEBBLE_CORE_PACKAGE;
+import static org.mifos.tools.mfg.service.pebble.core.PebbleServiceConstants.MIFOS_TOOLS_MFG_SERVICE_PEBBLE_IMPLEMENTATION_PACKAGE;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

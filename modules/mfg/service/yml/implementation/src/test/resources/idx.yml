@@ -4,55 +4,154 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 #
 
+---
 metadata:
-  name: Spring Boot REST Service
-  version: 1.0.0
-  description: Generates a complete RESTful service with Spring Boot
-  author: Mifos Initiative
-
-parameters:
-  - name: serviceName
-    type: STRING
-    required: true
-    description: Name of the REST service
-    default: MyService
-    pattern: "^[A-Za-z][A-Za-z0-9]*$"
-    message: Service name must start with a letter and contain only alphanumeric characters
-
-  - name: databaseType
-    type: ENUM
-    options: ["mysql", "postgresql", "h2"]
-    required: false
-    default: h2
-    description: Type of database to configure
-
-  - name: enableSecurity
-    type: BOOL
-    required: false
-    default: false
-    description: Include Spring Security configuration
-
-  - name: port
-    type: INT
-    required: false
-    default: 8080
-    min: 1024
-    max: 65535
-    description: Server port number
-
-files:
-  - path: "src/main/java/{{serviceName}}/Application.java"
-    template: "Application.peb"
-    type: PEBBLE
-
-  - path: "src/main/java/{{serviceName}}/controller/{{serviceName}}Controller.java"
-    template: "Controller.peb"
-    type: PEBBLE
-
-  - path: "src/main/resources/application.properties"
-    template: "application.properties"
-    type: RAW
-
-  - path: "build.gradle"
-    template: "build.gradle.peb"
-    type: PEBBLE
+  name: "Mifos Gradle Project"
+  description: "Mifos Initiative Standard Base Project"
+  version: "0.1.0-SNAPSHOT"
+  author: "Aleksandar Vidakovic <aleks@mifos.org>"
+groups:
+  - name: "standard"
+    parameters:
+      - name: "projectType"
+        type: "STRING"
+        required: false
+        description: "Change 'projectType'"
+        message: "Enter value for parameter 'projectType'"
+      - name: "projectName"
+        type: "STRING"
+        required: false
+        description: "[TODO: please provide description for parameter 'projectName']"
+        message: "Enter value for parameter 'projectName'"
+      - name: "projectGroupId"
+        type: "STRING"
+        required: false
+        description: "[TODO: please provide description for parameter 'projectGroupId']"
+        message: "Enter value for parameter 'projectGroupId'"
+      - name: "projectDescription"
+        type: "STRING"
+        required: false
+        description: "[TODO: please provide description for parameter 'projectDescription']"
+        message: "Enter value for parameter 'projectDescription'"
+      - name: "projectBasePackage"
+        type: "STRING"
+        required: false
+        description: "[TODO: please provide description for parameter 'projectBasePackage']"
+        message: "Enter value for parameter 'projectBasePackage'"
+      - name: "projectInceptionYear"
+        type: "STRING"
+        required: false
+        description: "[TODO: please provide description for parameter 'projectInceptionYear']"
+        message: "Enter value for parameter 'projectInceptionYear'"
+      - name: "developerUsername"
+        type: "STRING"
+        required: false
+        description: "[TODO: please provide description for parameter 'developerUsername']"
+        message: "Enter value for parameter 'developerUsername'"
+      - name: "developerFirstname"
+        type: "STRING"
+        required: false
+        description: "[TODO: please provide description for parameter 'developerFirstname']"
+        message: "Enter value for parameter 'developerFirstname'"
+      - name: "developerLastname"
+        type: "STRING"
+        required: false
+        description: "[TODO: please provide description for parameter 'developerLastname']"
+        message: "Enter value for parameter 'developerLastname'"
+      - name: "dummy"
+        type: "STRING"
+        required: false
+        description: "[TODO: please provide description for parameter 'developerLastname']"
+        message: "Enter value for parameter 'developerLastname'"
+      - name: "developerEmail"
+        type: "STRING"
+        required: false
+        description: "[TODO: please provide description for parameter 'developerEmail']"
+        message: "Enter value for parameter 'developerEmail'"
+      - name: "developerTimezone"
+        type: "STRING"
+        required: false
+        description: "[TODO: please provide description for parameter 'developerTimezone']"
+        message: "Enter value for parameter 'developerTimezone'"
+      - name: "developerRoles"
+        type: "STRING"
+        required: false
+        description: "[TODO: please provide description for parameter 'developerRoles']"
+        message: "Enter value for parameter 'developerRoles'"
+      - name: "inceptionYear"
+        type: "STRING"
+        required: false
+        description: "[TODO: please provide description for parameter 'inceptionYear']"
+        message: "Enter value for parameter 'inceptionYear'"
+      - name: "vendor"
+        type: "STRING"
+        required: false
+        description: "[TODO: please provide description for parameter 'vendor']"
+        message: "Enter value for parameter 'vendor'"
+    files:
+      - path: "gradle/wrapper/gradle-wrapper.properties"
+        template: "gradle/wrapper/gradle-wrapper.properties"
+        type: "RAW"
+      - path: "gradle/wrapper/gradle-wrapper.jar"
+        template: "gradle/wrapper/gradle-wrapper.jar"
+        type: "RAW"
+      - path: "settings.gradle.peb"
+        template: "settings.gradle"
+        type: "PEBBLE"
+      - path: ".github/copilot-ignore"
+        template: ".github/copilot-ignore"
+        type: "RAW"
+      - path: ".github/dependabot.yml"
+        template: ".github/dependabot.yml"
+        type: "RAW"
+      - path: ".github/CODEOWNERS"
+        template: ".github/CODEOWNERS"
+        type: "RAW"
+      - path: ".github/PULL_REQUEST_TEMPLATE.md"
+        template: ".github/PULL_REQUEST_TEMPLATE.md"
+        type: "RAW"
+      - path: ".github/workflows/release.yml"
+        template: ".github/workflows/release.yml"
+        type: "RAW"
+      - path: "gradle.properties"
+        template: "gradle.properties"
+        type: "RAW"
+      - path: "README.adoc"
+        template: "README.adoc"
+        type: "RAW"
+      - path: "gradlew.bat"
+        template: "gradlew.bat"
+        type: "RAW"
+      - path: "gradlew"
+        template: "gradlew"
+        type: "RAW"
+      - path: "dco.txt.peb"
+        template: "dco.txt"
+        type: "RAW"
+      - path: "CLA.adoc"
+        template: "CLA.adoc"
+        type: "RAW"
+      - path: "LICENSE"
+        template: "LICENSE"
+        type: "RAW"
+      - path: "CODE_OF_CONDUCT.adoc"
+        template: "CODE_OF_CONDUCT.adoc"
+        type: "RAW"
+      - path: "SECURITY.adoc"
+        template: "SECURITY.adoc"
+        type: "RAW"
+      - path: "NOTICE"
+        template: "NOTICE"
+        type: "RAW"
+      - path: "jreleaser.yml"
+        template: "jreleaser.yml"
+        type: "RAW"
+      - path: "build.gradle"
+        template: "build.gradle"
+        type: "RAW"
+      - path: "dco.txt.peb"
+        template: "dco.txt."
+        type: "PEBBLE"
+      - path: "settings.gradle.peb"
+        template: "settings.gradle.peb"
+        type: "PEBBLE"

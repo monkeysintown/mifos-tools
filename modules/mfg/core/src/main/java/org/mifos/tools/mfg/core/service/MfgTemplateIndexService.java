@@ -6,13 +6,11 @@
 package org.mifos.tools.mfg.core.service;
 
 import java.io.InputStream;
-import java.nio.file.Path;
 import org.mifos.tools.mfg.core.model.MfgTemplateIndexData;
 
 public interface MfgTemplateIndexService {
-    MfgTemplateIndexData index(Path filePath);
-
     MfgTemplateIndexData parse(InputStream data);
 
+    @Deprecated
     void validate(MfgTemplateIndexData index);
 }

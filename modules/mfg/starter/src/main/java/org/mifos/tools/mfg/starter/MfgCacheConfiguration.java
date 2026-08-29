@@ -23,8 +23,6 @@ class MfgCacheConfiguration {
 
     @Bean
     CacheManager cacheManager(RemovalListener<Object, Object> removalListener) {
-        // TODO: make this configurable
-
         var manager = new CaffeineCacheManager();
 
         manager.setCaffeine(Caffeine.newBuilder()

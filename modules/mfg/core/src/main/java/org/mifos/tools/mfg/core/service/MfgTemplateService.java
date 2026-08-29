@@ -8,5 +8,7 @@ package org.mifos.tools.mfg.core.service;
 import java.util.Map;
 
 public interface MfgTemplateService {
+    String evalValue(String templateValue, Map<String, Object> context);
+
     String eval(String templateRef, Map<String, Object> context);
 }

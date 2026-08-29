@@ -24,7 +24,9 @@ public class MfgRunRequest implements MifosRequest {
     private static final long serialVersionUID = 1L;
 
     private String templateDependency;
+    private String templateGroup;
     private String templateFile;
     private String templateRef;
-    private Map<String, Object> context;
+    private String targetFolder;
+    private transient Map<String, Object> context;
 }

@@ -1,3 +1,0 @@
-dependencies {
-    api "commons-beanutils:commons-beanutils"
-}

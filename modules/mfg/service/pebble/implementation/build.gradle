@@ -1,3 +1,4 @@
 dependencies {
     api "io.pebbletemplates:pebble"
+    api "org.apache.commons:commons-vfs2"
 }

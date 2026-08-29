@@ -5,10 +5,7 @@
 ///
 package org.mifos.tools.mfg.service.yml.implementation;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,18 +27,6 @@ final class YmlTemplateIndexServiceTest {
         assertNotNull(idx);
 
         templateIndexService.validate(idx);
-
-        var databaseType = idx.getParameters().stream()
-                .filter(param -> param.getName().equals("databaseType"))
-                .findFirst();
-        assertTrue(databaseType.isPresent());
-        assertEquals(3, databaseType.get().getOptions().size());
-
-        var enableSecurity = idx.getParameters().stream()
-                .filter(param -> param.getName().equals("enableSecurity"))
-                .findFirst();
-        assertTrue(enableSecurity.isPresent());
-        assertFalse(enableSecurity.get().getDefaultValueAsBool());
 
         log.warn("Template index: {}", idx);
     }
